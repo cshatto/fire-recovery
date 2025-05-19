@@ -3,17 +3,15 @@ from datetime import timedelta
 import numpy as np
 from glob import glob
 import xarray as xr
-
 import satpy
 from satpy.utils import check_satpy
 from satpy.readers import find_files_and_readers
 from satpy import Scene, MultiScene
 from pyresample.geometry import AreaDefinition
 from scipy.ndimage import label
-
 import rioxarray
 from rasterio.features import shapes
-from shapely.geometry import shape
+from shapely.geometry import shape, MultiPolygon
 
 
 # Get list of SAFE directories
@@ -90,6 +88,8 @@ for scene in mscn.scenes:
             filename=f"data/satpy_geotiffs/{safe_name}_{dataset}.tif"
         )
 
+#### Vectorize BAs using dNBR
+
 scene_pre, scene_post = list(mscn.scenes)[:2]
 # Compute dNBR (NBR_pre - NBR_post)
 nbr_pre = scene_pre['nbr'].compute()
@@ -101,6 +101,16 @@ scene_post['dnbr'] = dnbr.astype('float32')
 ba_mask = (dnbr >= 0.3).astype('uint8') # could be higher for severe fires but will do pix count later
 ba_mask.attrs = scene_post.attrs
 scene_post['ba_mask'] = ba_mask
+
+# Identify connected clusters and filter by size, 150 is best sofar
+structure = np.ones((3, 3), dtype=np.uint8)  
+labeled_array, num_features = label(ba_mask.values, structure=structure)
+filtered_mask = np.zeros_like(labeled_array, dtype=np.uint8)
+if num_features > 0:
+    for i in range(1, num_features + 1):
+        cluster_size = np.sum(labeled_array == i)
+        if cluster_size > 150:  
+            filtered_mask[labeled_array == i] = 1
 
 ba_mask_filtered = xr.DataArray(
     filtered_mask,
