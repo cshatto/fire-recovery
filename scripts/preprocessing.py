@@ -137,3 +137,6 @@ with rioxarray.open_rasterio(temp_tif) as src:
 ba = MultiPolygon(polygons) if polygons else MultiPolygon()
 gdf = gpd.GeoDataFrame(geometry=[ba], crs=crs)
 gdf.to_file('data/output/burn_areas.geojson')
+
+if __name__ == "__main__":
+    mscn = preprocess_data()

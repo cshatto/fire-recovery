@@ -1,12 +1,11 @@
-from fastapi import FastAPI
-from fastapi.staticfiles import StaticFiles
-from app import router
-import os
+from preprocessing import preprocess_data
+from classification import classify_recovery
+from visualization import visualize_recovery
 
-app = FastAPI()
-os.makedirs("data/output", exist_ok=True)
-# Mount static directory for serving results
-app.mount("/data/output", StaticFiles(directory="data/output"), name="output")
+def main():
+    mscn = preprocess_data()
+    scene_sept, scene_nov, scene_apr = classify_recovery(mscn)
+    visualize_recovery(scene_sept, scene_nov, scene_apr)
 
-# Include router
-# app.include_router(router)
+if __name__ == "__main__":
+    main()
