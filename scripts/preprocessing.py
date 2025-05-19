@@ -2,6 +2,7 @@ import os
 from datetime import timedelta
 import numpy as np
 from glob import glob
+import xarray as xr
 
 import satpy
 from satpy.utils import check_satpy
