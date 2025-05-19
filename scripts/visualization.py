@@ -2,7 +2,7 @@ import geopandas as gpd
 import folium
 from folium.features import GeoJson, GeoJsonTooltip
 import pandas as pd
-from utils import vectorize_recovery, plot_bar_chart
+from scripts.utils import vectorize_recovery, plot_bar_chart
 
 def visualize_recovery(scene_sept, scene_nov, scene_apr):
     # Bar charts
@@ -113,8 +113,8 @@ def visualize_recovery(scene_sept, scene_nov, scene_apr):
     print("Folium map saved as 'recovery_map.html'")
 
 if __name__ == "__main__":
-    from preprocessing import preprocess_data
-    from classification import classify_recovery
+    from scripts.preprocessing import preprocess_data
+    from scripts.classification import classify_recovery
     mscn = preprocess_data()
     scene_sept, scene_nov, scene_apr = classify_recovery(mscn)
     visualize_recovery(scene_sept, scene_nov, scene_apr)

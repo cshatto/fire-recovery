@@ -1,6 +1,6 @@
-from preprocessing import preprocess_data
-from classification import classify_recovery
-from visualization import visualize_recovery
+from scripts.preprocessing import preprocess_data
+from scripts.classification import classify_recovery
+from scripts.visualization import visualize_recovery
 
 def main():
     mscn = preprocess_data()
