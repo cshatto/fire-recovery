@@ -16,14 +16,6 @@ from shapely.geometry import shape, MultiPolygon
 import geopandas as gpd
 
 def preprocess_data():
-    # Setup and checks
-    os.chdir('..')
-    subprocess.run(['pwd'])
-    print(f"satpy version: {satpy.__version__}")
-    check_satpy(readers=['msi_safe_l2a', 'msi_safe', 'generic_image'],
-                writers=['geotiff', 'cf', 'simple_image'])
-    subprocess.run(['gdalinfo', 'data/safe_rasters/S2A_MSIL2A_20240915T112111_N0511_R037_T29TNF_20240915T155449/S2A_MSIL2A_20240915T112111_N0511_R037_T29TNF_20240915T155449.SAFE/GRANULE/L2A_T29TNF_A048225_20240915T112112/IMG_DATA/R10m/T29TNF_20240915T112111_B02_10m.jp2'])
-
     # Collect SAFE files
     safe_dirs = glob("data/safe_rasters/*")
     scene_files = []
@@ -47,7 +39,7 @@ def preprocess_data():
     projection = {"proj": "latlong", "datum": "WGS84"}
     width = 1000
     height = 1000
-    area_extent = (-8.24721 | 41.06626 | -7.48991 | 41.48443)
+    area_extent = (-8.24721, 41.06626, -7.48991, 41.48443)
     area_def = AreaDefinition(area_id, description, proj_id, projection, width, height, area_extent)
     mscn = mscn.resample(area_def)
 

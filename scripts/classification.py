@@ -48,6 +48,6 @@ def classify_recovery(mscn):
     return scene_sept, scene_nov, scene_apr
 
 if __name__ == "__main__":
-    from scripts.preprocessing import preprocess_data
+    from preprocessing import preprocess_data
     mscn = preprocess_data()
     scene_sept, scene_nov, scene_apr = classify_recovery(mscn)
