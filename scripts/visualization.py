@@ -182,9 +182,3 @@ def visualize_recovery(scene_sept, scene_nov, scene_apr):
     m.save('data/output/classification/recovery_map.html')
     print("Folium map saved as 'recovery_map.html'")
     
-if __name__ == "__main__":
-    from preprocessing import preprocess_data
-    from classification import classify_recovery
-    mscn = preprocess_data()
-    scene_sept, scene_nov, scene_apr = classify_recovery(mscn)
-    visualize_recovery(scene_sept, scene_nov, scene_apr)

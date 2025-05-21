@@ -141,6 +141,3 @@ def preprocess_data():
     os.remove(temp_tif)
 
     return mscn
-
-if __name__ == "__main__":
-    mscn = preprocess_data()

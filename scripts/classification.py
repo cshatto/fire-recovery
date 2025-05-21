@@ -83,8 +83,3 @@ def classify_recovery(mscn):
         os.remove(temp_tif_kmeans)
 
     return scene_sept, scene_nov, scene_apr
-
-if __name__ == "__main__":
-    from preprocessing import preprocess_data
-    mscn = preprocess_data()
-    scene_sept, scene_nov, scene_apr = classify_recovery(mscn)
