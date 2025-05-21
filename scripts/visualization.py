@@ -6,7 +6,7 @@ from utils import vectorize_recovery, plot_bar_chart
 
 def visualize_recovery(scene_sept, scene_nov, scene_apr):
     # Bar charts
-    for scene, date in [(scene_nov, '20241109'), (scene_apr, '20250423')]:
+    for scene, date in [(scene_nov, '2024-11-09'), (scene_apr, '2025-04-23')]:
         gdf = vectorize_recovery(scene)
         plot_bar_chart(gdf, date)
 

@@ -1,4 +1,4 @@
 **/.DS_Store
 data/safe_rasters
 .env
-**/.__pycache__
+**/__pycache__
