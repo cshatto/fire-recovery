@@ -42,6 +42,8 @@ def classify_recovery(mscn):
                 if shape(geom).is_valid
             ]
         gdf = gpd.GeoDataFrame(polygons, crs='EPSG:4326')
+        output_dir = "/fire-recovery/data/output/classification"
+        os.makedirs(output_dir, exist_ok=True)
         gdf.to_file(f'data/output/classification/recovery_areas_{date}.geojson') if not gdf.empty else gpd.GeoDataFrame(geometry=[shape(MultiPolygon())], crs='EPSG:4326').to_file(f'data/output/classification/recovery_areas_{date}.geojson')
         os.remove(temp_tif)
 

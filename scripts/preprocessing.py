@@ -14,8 +14,18 @@ import rioxarray
 from rasterio.features import shapes
 from shapely.geometry import shape, MultiPolygon
 import geopandas as gpd
+import warnings
+import shutil
+warnings.filterwarnings("ignore")
+
+
 
 def preprocess_data():
+    # satpy_composites_dir = "/root/.local/lib/python3.13/site-packages/satpy/etc/composites"
+    # msi_yaml = os.path.join(satpy_composites_dir, "msi.yaml")
+    # sen2_msi_yaml = os.path.join(satpy_composites_dir, "sen2_msi.yaml")
+    # if os.path.exists(msi_yaml) and not os.path.exists(sen2_msi_yaml):
+    #     shutil.copy(msi_yaml, sen2_msi_yaml)
     # Collect SAFE files
     safe_dirs = glob("data/safe_rasters/*")
     scene_files = []
@@ -37,8 +47,8 @@ def preprocess_data():
     description = "Northern Portugal region"
     proj_id = "latlong"
     projection = {"proj": "latlong", "datum": "WGS84"}
-    width = 1000
-    height = 1000
+    width = 1008
+    height = 1008
     area_extent = (-8.24721, 41.06626, -7.48991, 41.48443)
     area_def = AreaDefinition(area_id, description, proj_id, projection, width, height, area_extent)
     mscn = mscn.resample(area_def)
@@ -74,6 +84,8 @@ def preprocess_data():
         scene['nbr'] = nbr
 
     # Save animation
+    output_dir = "data/output/satpy_animations"
+    os.makedirs(output_dir, exist_ok=True)
     mscn.save_animation('data/output/satpy_animations/{name}_{start_time:%Y%m%d_%H%M%S}.mp4', fps=1)
 
     # Save GeoTIFFs

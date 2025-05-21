@@ -6,6 +6,8 @@ import geopandas as gpd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import pandas as pd
+import warnings
+warnings.filterwarnings("ignore")
 
 colors = {1: '#FF0000CC', 2: '#FFFF00CC', 3: '#00FF00CC'}
 labels = {1: 'No recovery', 2: 'Moderate recovery', 3: 'High recovery'}
