@@ -34,3 +34,6 @@ RUN sed -i 's/sensors: \[msi\]/sensors: \[sen2_msi\]/' /root/.local/lib/python3.
 # Environment variables
 ENV PYTHONPATH=/fire-recovery/scripts
 ENV PATH=/root/.local/bin:$PATH
+
+EXPOSE 8000
+CMD ["python", "-m", "http.server", "8000"]
