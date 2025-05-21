@@ -27,9 +27,9 @@ docker images
 
 
 #### 3. Run the Container
-Run the container with a volume mount to make /fire-recovery writable and persist files to /Users/cshatto/Projects/test:
+Run the container with a volume mount to make /fire-recovery writable and persist files to your local ~/ot-recovery directory:
 ```
-docker run -d --name fire-recovery-container -v ~/ot-recovery:/fire-recovery fire-recovery
+docker run -d -it --name fire-recovery-container -v ~/ot-recovery:/fire-recovery fire-recovery
 ```
 Windows Users: Use -v C:\Users\{USER}\ot-recovery:/fire-recovery.
 
