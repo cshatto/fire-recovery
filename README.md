@@ -1,5 +1,5 @@
 ### Fire Recovery Tool 
-This README provides simple steps to run the fire-recovery Docker image and access its directories. 
+This README provides simple steps to run the fire-recovery Docker image and access its directories. The benefit of using docker here instead of just cloning the Github repository is that the Docker comes with preloaded Sentinel-2 SAFE data to work through the entire workflow. 
 The image runs a script (main.py) that attempts to write to /fire-recovery, which causes an error unless a writable directory is mounted. 
 We’ll use the local directory (~/ot-recovery) to store output files.
 
@@ -8,6 +8,7 @@ Docker: Please install Docker from docker.com.
 
 Ensure ~/ot-recovery exists and is empty (or a similar path, e.g., C:\Users\ {YourUsername}\ot-recovery on Windows).
 
+
 #### 1. Make local directory
 If not done so already.
 ```
@@ -15,7 +16,7 @@ mkdir -p ~/ot-recovery
 ```
 
 #### 2. Pull the Image
-If fire-recovery is in a registry (e.g., Docker Hub), pull it:
+fire-recovery Docker is in a registry (e.g., Docker Hub), pull it:
 ```
 docker pull cshatto/fire-recovery:latest
 ```
@@ -34,13 +35,13 @@ docker run -d -it --name fire-recovery-container -v ~/ot-recovery:/fire-recovery
 Windows Users: Use -v C:\Users\{USER}\ot-recovery:/fire-recovery.
 
 
-Check that the container is running:
+Check that the container is running in the backgroound (-d):
 ```
 docker ps
 ```
 
 #### 4. Copy Directories
-I'd like for you to be able to explore the code straightaway, a nice way to do that is to copy the docker volume directory directly to your local volume. 
+I'd like for you to be able to explore the codebase straightaway, a nice way to do that is to copy the docker volume directory directly to your local volume. 
 ```
 docker cp fire-recovery-container:/fire-recovery ~/ot-recovery
 ```
