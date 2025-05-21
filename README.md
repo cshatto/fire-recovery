@@ -8,6 +8,7 @@ Docker: Please install Docker from docker.com.
 
 Ensure ~/ot-recovery exists and is empty (or a similar path, e.g., C:\Users\ {YourUsername}\ot-recovery on Windows).
 
+
 #### 1. Make local directory
 If not done so already.
 ```
@@ -34,7 +35,7 @@ docker run -d -it --name fire-recovery-container -v ~/ot-recovery:/fire-recovery
 Windows Users: Use -v C:\Users\{USER}\ot-recovery:/fire-recovery.
 
 
-Check that the container is running:
+Check that the container is running in the backgroound (-d):
 ```
 docker ps
 ```
