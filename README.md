@@ -1,11 +1,12 @@
 ### Fire Recovery Tool 
 This README provides simple steps to run the fire-recovery Docker image and access its directories. 
 The image runs a script (main.py) that attempts to write to /fire-recovery, which causes an error unless a writable directory is mounted. 
-We’ll use your local directory (~/ot-recovery) to store output files.
+We’ll use the local directory (~/ot-recovery) to store output files.
 
 Prerequisites
 Docker: Please install Docker from docker.com.
-Local Directory: Ensure ~/ot-recovery exists and is empty (or a similar path, e.g., C:~\ot-recovery on Windows).
+
+Ensure ~/ot-recovery exists and is empty (or a similar path, e.g., C:\Users\ {YourUsername}\ot-recovery on Windows).
 
 #### 1. Make local directory
 If not done so already.
