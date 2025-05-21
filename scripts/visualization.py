@@ -2,7 +2,7 @@ import geopandas as gpd
 import folium
 from folium.features import GeoJson, GeoJsonTooltip
 import pandas as pd
-from utils import vectorize_recovery, vectorize_recovery_kmeans, plot_bar_chart, plot_comparison_bar_chart
+from .utils import vectorize_recovery, vectorize_recovery_kmeans, plot_bar_chart, plot_comparison_bar_chart
 
 def visualize_recovery(scene_sept, scene_nov, scene_apr):
     # Bar charts for thresholding and k-means
@@ -21,8 +21,8 @@ def visualize_recovery(scene_sept, scene_nov, scene_apr):
 
     # Load GeoJSON files
     try:
-        gdf_20241109 = gpd.read_file('data/output/classification/recovery_areas_20241109.geojson')
-        gdf_20250423 = gpd.read_file('data/output/classification/recovery_areas_20250423.geojson')
+        gdf_20241109 = gpd.read_file('data/output/classification/thresh_areas_20241109.geojson')
+        gdf_20250423 = gpd.read_file('data/output/classification/thresh_areas_20250423.geojson')
         gdf_kmeans_20241109 = gpd.read_file('data/output/classification/kmeans_areas_20241109.geojson')
         gdf_kmeans_20250423 = gpd.read_file('data/output/classification/kmeans_areas_20250423.geojson')
     except Exception as e:

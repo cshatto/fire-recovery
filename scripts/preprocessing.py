@@ -84,7 +84,7 @@ def preprocess_data():
         scene['nbr'] = nbr
 
     # Save animation
-    output_dir = "data/output/satpy_animations"
+    output_dir = "data/output/satpy_animations" 
     os.makedirs(output_dir, exist_ok=True)
     mscn.save_animation('data/output/satpy_animations/{name}_{start_time:%Y%m%d_%H%M%S}.mp4', fps=1)
 
