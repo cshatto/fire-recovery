@@ -16,7 +16,7 @@ mkdir -p ~/ot-recovery
 ```
 
 #### 2. Pull the Image
-If fire-recovery is in a registry (e.g., Docker Hub), pull it:
+fire-recovery Docker is in a registry (e.g., Docker Hub), pull it:
 ```
 docker pull cshatto/fire-recovery:latest
 ```
@@ -41,7 +41,7 @@ docker ps
 ```
 
 #### 4. Copy Directories
-I'd like for you to be able to explore the code straightaway, a nice way to do that is to copy the docker volume directory directly to your local volume. 
+I'd like for you to be able to explore the codebase straightaway, a nice way to do that is to copy the docker volume directory directly to your local volume. 
 ```
 docker cp fire-recovery-container:/fire-recovery ~/ot-recovery
 ```
