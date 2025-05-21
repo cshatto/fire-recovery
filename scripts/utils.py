@@ -23,7 +23,18 @@ def vectorize_recovery(scene):
     ]
     return gpd.GeoDataFrame(polygons, crs=crs) if polygons else gpd.GeoDataFrame(geometry=[], crs=crs)
 
-def plot_bar_chart(gdf, date, labels=labels):
+def vectorize_recovery_kmeans(scene):
+    mask_data = scene['kmeans_mask'].values
+    transform = scene['kmeans_mask'].rio.transform()
+    crs = scene['kmeans_mask'].rio.crs
+    polygons = [
+        {'geometry': shape(geom), 'recovery': val}
+        for val in [1, 2, 3] for geom, val in shapes(mask_data, mask=mask_data == val, transform=transform)
+        if shape(geom).is_valid
+    ]
+    return gpd.GeoDataFrame(polygons, crs=crs) if polygons else gpd.GeoDataFrame(geometry=[], crs=crs)
+
+def plot_bar_chart(gdf, date, labels=labels, title_prefix=''):
     gdf['area_ha'] = gdf.geometry.area / 10000
     areas = gdf.groupby('recovery')['area_ha'].sum().reindex([1, 2, 3], fill_value=0)
     df = pd.DataFrame({
@@ -32,7 +43,27 @@ def plot_bar_chart(gdf, date, labels=labels):
     })
     plt.figure(figsize=(8, 6))
     sns.barplot(data=df, x='Recovery', y='Area (ha)', palette=[colors[i] for i in [1, 2, 3]])
-    plt.title(f'Recovery Areas - {date}', fontsize=14)
+    plt.title(f'{title_prefix}Recovery Areas - {date}', fontsize=14)
     plt.xlabel('Recovery Class', fontsize=12)
     plt.ylabel('Area (hectares)', fontsize=12)
-    plt.savefig(f'data/output/classification/recovery_bar_{date}.png', dpi=300, bbox_inches='tight')
+    plt.savefig(f'data/output/classification/{title_prefix.lower().replace(" ", "_")}recovery_bar_{date}.png', dpi=300, bbox_inches='tight')
+    plt.close()
+
+def plot_comparison_bar_chart(gdf_thresh, gdf_kmeans, date, labels=labels):
+    gdf_thresh['area_ha'] = gdf_thresh.geometry.area / 10000
+    gdf_kmeans['area_ha'] = gdf_kmeans.geometry.area / 10000
+    areas_thresh = gdf_thresh.groupby('recovery')['area_ha'].sum().reindex([1, 2, 3], fill_value=0)
+    areas_kmeans = gdf_kmeans.groupby('recovery')['area_ha'].sum().reindex([1, 2, 3], fill_value=0)
+    df = pd.DataFrame({
+        'Recovery': [labels.get(i, 'Unknown') for i in [1, 2, 3]] * 2,
+        'Area (ha)': list(areas_thresh.values) + list(areas_kmeans.values),
+        'Method': ['Thresholding'] * 3 + ['K-means'] * 3
+    })
+    plt.figure(figsize=(10, 6))
+    sns.barplot(data=df, x='Recovery', y='Area (ha)', hue='Method', palette=['#4FC3F7', '#1976D2'])    
+    plt.title(f'Thresholding vs K-means Recovery Areas - {date}', fontsize=14)
+    plt.xlabel('Recovery Class', fontsize=12)
+    plt.ylabel('Area (hectares)', fontsize=12)
+    plt.legend(title='Method')
+    plt.savefig(f'data/output/classification/comparison_recovery_bar_{date}.png', dpi=300, bbox_inches='tight')
+    plt.close()
