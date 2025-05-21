@@ -86,7 +86,7 @@ def preprocess_data():
     # Save animation
     output_dir = "data/output/satpy_animations"
     os.makedirs(output_dir, exist_ok=True)
-    # mscn.save_animation('data/output/satpy_animations/{name}_{start_time:%Y%m%d_%H%M%S}.mp4', fps=1)
+    mscn.save_animation('data/output/satpy_animations/{name}_{start_time:%Y%m%d_%H%M%S}.mp4', fps=1)
 
     # Save GeoTIFFs
     for scene in mscn.scenes:
