@@ -1,5 +1,5 @@
 ### Fire Recovery Tool 
-This README provides simple steps to run the fire-recovery Docker image and access its directories. 
+This README provides simple steps to run the fire-recovery Docker image and access its directories. The benefit of using docker here instead of just cloning the Github repository is that the Docker comes with preloaded Sentinel-2 SAFE data to work through the entire workflow. 
 The image runs a script (main.py) that attempts to write to /fire-recovery, which causes an error unless a writable directory is mounted. 
 We’ll use the local directory (~/ot-recovery) to store output files.
 
