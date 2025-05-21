@@ -1,4 +1,4 @@
-FROM python:3.13-slim AS builder
+FROM python:3.13-slim
 
 # Install build dependencies for GDAL and others
 RUN apt-get update -y || { echo "apt-get update failed"; exit 1; } \
@@ -25,15 +25,8 @@ COPY requirements.txt .
 # Install Python dependencies
 RUN pip install --user --no-cache-dir -r requirements.txt || { echo "pip install failed"; exit 1; }
 
-FROM python:3.13-slim
-# Set working directory
-WORKDIR /fire-recovery
-
 # Copy project files, including safe_rasters/
 COPY . .
-
-# Copy installed dependencies from builder
-COPY --from=builder /root/.local /root/.local
 
 # Modify msi_safe_l2a.yaml to change sensors: [msi] to sensors: [sen2_msi]
 RUN sed -i 's/sensors: \[msi\]/sensors: \[sen2_msi\]/' /root/.local/lib/python3.13/site-packages/satpy/etc/readers/msi_safe_l2a.yaml
