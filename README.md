@@ -30,9 +30,9 @@ docker images
 #### 3. Run the Container
 Run the container with a volume mount to make /fire-recovery writable and persist files to your local ~/ot-recovery directory:
 ```
-docker run -d -it --name fire-recovery-container -v ~/ot-recovery:/fire-recovery fire-recovery
+docker run -d -p 8000:8000 cshatto/fire-recovery
+
 ```
-Windows Users: Use -v C:\Users\{USER}\ot-recovery:/fire-recovery.
 
 
 Check that the container is running in the backgroound (-d):
@@ -40,31 +40,18 @@ Check that the container is running in the backgroound (-d):
 docker ps
 ```
 
-#### 4. Copy Directories
-I'd like for you to be able to explore the codebase straightaway, a nice way to do that is to copy the docker volume directory directly to your local volume. 
+#### 4. Run main.py
 ```
-docker cp fire-recovery-container:/fire-recovery ~/ot-recovery
-```
-From here, you should be able to set up your local environment to run the full project.
+docker exec -it <container_id> bash
+python3 main.py
 
-
-#### 5. Set up your local environment
-```
-cd ot-recovery/fire-recovery
-python3 -m venv venv
-pip install -r requirements.txt
-source venv/bin/activate
 ```
 
 ### 6. Check Output
-The script (main.py) should now run, writing output to your local test/fire-recovery directory. It should take 1-2 minutes depending on your machine.
+The script (main.py) should now run, writing outputs to data/output/. It should take 1-2 minutes depending on your machine.
 ```
-python3 scripts/main.py
+http://localhost:8000/data/output/classification/recovery_map.html
+
 ```
 
-Check your local directory:
-```
-ls ~/test/fire-recovery
-```
 
-Navigate to the main output file which is the folium html map saved as 'recovery_map.html' and open it in your preferred browser. All vectors and geotiffs used in the creation of the html map are saved in the output/ folder.
