@@ -16,9 +16,6 @@ def visualize_recovery(scene_sept, scene_nov, scene_apr):
         # Comparison bar chart
         plot_comparison_bar_chart(gdf, gdf_kmeans, date)
 
-    # Print pixel count
-    print(f"ba_mask pixels={scene_sept['ba_mask'].sum().values}")
-
     # Load GeoJSON files
     try:
         gdf_20241109 = gpd.read_file('data/output/classification/thresh_areas_20241109.geojson')
@@ -39,10 +36,6 @@ def visualize_recovery(scene_sept, scene_nov, scene_apr):
     gdf_20250423 = gdf_20250423[gdf_20250423.geometry.is_valid]
     gdf_kmeans_20241109 = gdf_kmeans_20241109[gdf_kmeans_20241109.geometry.is_valid]
     gdf_kmeans_20250423 = gdf_kmeans_20250423[gdf_kmeans_20250423.geometry.is_valid]
-    print(f"Valid features after filtering (Thresholding 2024-11-09): {len(gdf_20241109)}")
-    print(f"Valid features after filtering (Thresholding 2025-04-23): {len(gdf_20250423)}")
-    print(f"Valid features after filtering (K-means 2024-11-09): {len(gdf_kmeans_20241109)}")
-    print(f"Valid features after filtering (K-means 2025-04-23): {len(gdf_kmeans_20250423)}")
 
     if len(gdf_20241109) == 0 or len(gdf_20250423) == 0 or len(gdf_kmeans_20241109) == 0 or len(gdf_kmeans_20250423) == 0:
         print("Error: One or more GeoDataFrames are empty after validation.")
