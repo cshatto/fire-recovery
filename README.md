@@ -30,7 +30,7 @@ docker ps
 ```
 
 #### 5. Run main.py
-Enter container using the 'exec' command and the <container> id you copied in the previous step.
+Enter container using the 'exec' command and the container id you copied in the previous step.
 ```
 docker exec -it <container_id> bash
 python3 main.py
