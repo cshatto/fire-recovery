@@ -38,7 +38,7 @@ def classify_recovery(mscn):
         dndvi_valid = dndvi[valid_mask].reshape(-1, 1)
         
         if len(dndvi_valid) > 0:
-            kmeans = KMeans(n_clusters=3, random_state=42).fit(dndvi_valid)
+            kmeans = KMeans(n_clusters=3, random_state=111).fit(dndvi_valid)
             # Get cluster centers and sort by mean dNDVI
             cluster_centers = kmeans.cluster_centers_.flatten()
             sorted_indices = np.argsort(cluster_centers)
