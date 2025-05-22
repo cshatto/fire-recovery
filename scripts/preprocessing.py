@@ -105,7 +105,7 @@ def preprocess_data():
     dnbr = nbr_pre - nbr_post
     dnbr.attrs = scene_pre['nbr'].attrs
     scene_post['dnbr'] = dnbr.astype('float32')
-    ba_mask = (dnbr >= 0.3).astype('uint8')
+    ba_mask = (dnbr >= 0.4).astype('uint8')
     ba_mask.attrs = scene_post.attrs
     scene_post['ba_mask'] = ba_mask
 
