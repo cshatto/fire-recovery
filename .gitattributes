@@ -1,4 +1,5 @@
 *.html linguist-detectable=false
 *.py linguist-detectable=true linguist-language=Python
 *.ipynb linguist-language=Python
+Dockerfile linguist-detectable=true linguist-language=Dockerfile
 
