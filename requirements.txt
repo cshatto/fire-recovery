@@ -19,3 +19,6 @@ bottleneck
 python-geotiepoints
 imageio
 scikit-learn
+sqlalchemy
+psycopg2
+geoalchemy2

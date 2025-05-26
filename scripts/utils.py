@@ -9,6 +9,30 @@ import pandas as pd
 import warnings
 warnings.filterwarnings("ignore")
 
+from sqlalchemy import create_engine
+from dotenv import load_dotenv
+import os
+
+def get_postgis_engine():
+    load_dotenv('.env.local')
+    # Credentials (only stored locally)
+    db_params = {
+        'dbname': os.getenv('DB_NAME'),
+        'user': os.getenv('DB_USER'),
+        'password': os.getenv('DB_PASSWORD'),
+        'host': os.getenv('DB_HOST', 'localhost'), 
+        'port': os.getenv('DB_PORT', '5432')  
+    }
+    
+    # Validate that all required credentials are present
+    missing_params = [key for key, value in db_params.items() if value is None]
+    if missing_params:
+        raise ValueError(f"Missing required environment variables: {', '.join(missing_params)}")
+    
+    return create_engine(
+        f"postgresql+psycopg2://{db_params['user']}:{db_params['password']}@{db_params['host']}:{db_params['port']}/{db_params['dbname']}"
+    )
+
 colors = {1: '#FF0000CC', 2: '#FFFF00CC', 3: '#00FF00CC'}
 labels = {1: 'No recovery', 2: 'Moderate recovery', 3: 'High recovery'}
 

@@ -17,6 +17,7 @@ import geopandas as gpd
 import warnings
 import shutil
 warnings.filterwarnings("ignore")
+from .utils import get_postgis_engine
 
 
 
@@ -135,9 +136,18 @@ def preprocess_data():
         crs = src.rio.crs
         shapes_gen = shapes(mask_data, mask=mask_data == 1, transform=transform)
         polygons = [shape(geom) for geom, value in shapes_gen if value == 1]
-    ba = MultiPolygon(polygons) if polygons else MultiPolygon()
-    gdf = gpd.GeoDataFrame(geometry=[ba], crs=crs)
+    # Create gdf with one polygon per row
+    gdf = gpd.GeoDataFrame(geometry=polygons, crs=crs)
     gdf.to_file('data/output/burn_areas.geojson')
+    # Pipe into PostGIS
+    engine = get_postgis_engine()
+    gdf.to_postgis(
+        name='burn_areas',  
+        con=engine,
+        schema='public',  
+        if_exists='replace',  
+        index=False  
+    )
     os.remove(temp_tif)
 
     return mscn
