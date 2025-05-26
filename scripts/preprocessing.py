@@ -47,7 +47,7 @@ def preprocess_data():
     description = "Northern Portugal region"
     proj_id = "latlong"
     projection = {"proj": "latlong", "datum": "WGS84"}
-    width = 1008
+    width = 1008 #
     height = 1008
     area_extent = (-8.24721, 41.06626, -7.48991, 41.48443)
     area_def = AreaDefinition(area_id, description, proj_id, projection, width, height, area_extent)

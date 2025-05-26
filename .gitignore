@@ -3,3 +3,4 @@ data/safe_rasters
 .env
 **/__pycache__
 venv
+.env.local
